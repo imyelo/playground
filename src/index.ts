@@ -1,3 +1,6 @@
+/** 二指数单位 */
+const POWER_OF_TWO = { '': 0, Ki: 10, Mi: 20, Gi: 30, Ti: 40, Pi: 50, Ei: 60 };
+
 /** 解析内存规格 */
 export const parseMemoryRequirement = (valueRaw: string | number): number => {
   if (typeof valueRaw === 'number') {
@@ -5,30 +8,10 @@ export const parseMemoryRequirement = (valueRaw: string | number): number => {
   }
   if (typeof valueRaw === 'string') {
     let matched;
-    matched = valueRaw.match(/^(\d+)Ki$/)
+    matched = valueRaw.match(/^(\d+)(|Ki|Mi|Gi|Ti|Pi|Ei)$/);
     if (matched) {
-      return matched[1] * 1024
-    }
-    matched = valueRaw.match(/^(\d+)Mi$/)
-    if (matched) {
-      return matched[1] * 1024 * 1024
-    }
-    matched = valueRaw.match(/^(\d+)Gi$/)
-    if (matched) {
-      return matched[1] * 1024 * 1024 * 1024
-    }
-    matched = valueRaw.match(/^(\d+)Ti$/)
-    if (matched) {
-      return matched[1] * 1024 * 1024 * 1024 * 1024
-    }
-    matched = valueRaw.match(/^(\d+)Pi$/)
-    if (matched) {
-      return matched[1] * 1024 * 1024 * 1024 * 1024 * 1024
-    }
-    matched = valueRaw.match(/^(\d+)Ei$/)
-    if (matched) {
-      return matched[1] * 1024 * 1024 * 1024 * 1024 * 1024 * 1024
+      return matched[1] * 2 ** POWER_OF_TWO[matched[2]];
     }
   }
-  throw new Error('Invalid requirement format.')
+  return;
 }
