@@ -10,11 +10,11 @@ export const parseMemoryRequirement = (valueRaw: string | number): number => {
   }
   if (typeof valueRaw === 'string') {
     let matched;
-    matched = valueRaw.match(/^(\d+)(|Ki|Mi|Gi|Ti|Pi|Ei)$/);
+    matched = valueRaw.match(/^([\d.e]+)(|Ki|Mi|Gi|Ti|Pi|Ei)$/);
     if (matched) {
       return matched[1] * 2 ** POWER_OF_TWO[matched[2]];
     }
-    matched = valueRaw.match(/^(\d+)(|K|M|G|T|P|E)$/);
+    matched = valueRaw.match(/^([\d.e]+)(|K|M|G|T|P|E)$/);
     if (matched) {
       return matched[1] * 1000 ** POWER_OF_THOUSAND[matched[2]];
     }
